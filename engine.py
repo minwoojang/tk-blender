@@ -91,6 +91,7 @@ def on_scene_event_callback(*args, **kwargs):
     """
     from sgtk.platform.qt import QtGui
 
+
     try:
         refresh_engine()
     except Exception as e:
@@ -236,21 +237,24 @@ class BlenderEngine(Engine):
         Displays a dialog with the message according to  the severity level
         specified.
         """
-        from sgtk.platform.qt import QtGui, QtCore
+        try:
+            from sgtk.platform.qt import QtGui, QtCore
 
-        level_icon = {
-            "info": QtGui.QMessageBox.Information,
-            "error": QtGui.QMessageBox.Critical,
-            "warning": QtGui.QMessageBox.Warning,
-        }
+            level_icon = {
+                "info": QtGui.QMessageBox.Information,
+                "error": QtGui.QMessageBox.Critical,
+                "warning": QtGui.QMessageBox.Warning,
+            }
 
-        dlg = QtGui.QMessageBox()
-        dlg.setIcon(level_icon[level])
-        dlg.setText(msg)
-        dlg.setWindowTitle(ENGINE_NICE_NAME)
-        dlg.setWindowFlags(dlg.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
-        dlg.show()
-        dlg.exec_()
+            dlg = QtGui.QMessageBox()
+            dlg.setIcon(level_icon[level])
+            dlg.setText(msg)
+            dlg.setWindowTitle(ENGINE_NICE_NAME)
+            dlg.setWindowFlags(dlg.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
+            dlg.show()
+            dlg.exec_()
+        except:
+            pass
 
     def show_error(self, msg):
         """
